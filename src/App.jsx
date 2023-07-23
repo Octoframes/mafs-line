@@ -1,122 +1,54 @@
-import * as React from "react"
+import React, { useState } from 'react';
+
 import "mafs/core.css";
 import "mafs/font.css";
 
+import { Mafs, Line, Coordinates, useMovablePoint } from "mafs";
 
-import { Mafs, useStopwatch, Point, useMovablePoint, Plot, Vector, Polygon } from "mafs"
+
+function Button({onClick}) {
+  return <button onClick={onClick}> Hi </button>;
+};
 
 
 export default function App() {
-  const xSpan = 1.75
-  const ySpan = 1.75
-  const initialVelocity = useMovablePoint([0.5, 1.5])
 
-  const vectorScale = 4
+  const [color, setColor] = useState('red');
+  const [my_x, setmy_x] = useState(-2)
+  const point1 = useMovablePoint([my_x, -1]);
+  const point2 = useMovablePoint([2, 1]);
 
-  const g = 9.8
-  const xVelocity = initialVelocity.x * vectorScale
-  const yVelocity = initialVelocity.y * vectorScale
-  const velocityAngle = Math.atan(yVelocity / xVelocity)
-  const velocityMag = Math.sqrt(
-    xVelocity ** 2 + yVelocity ** 2
-  )
-  const timeOfFlight =
-    Math.abs(2 * velocityMag * Math.sin(velocityAngle)) / g
-
-  function positionAtTime(t) {
-    return [xVelocity * t, yVelocity * t - 0.5 * g * t ** 2]
+  function callback(color) {
+    if (color === "red") {
+      return ("blue");
+    } else {
+      return ("red");
+    } 
   }
-  const [restingX, restingY] = positionAtTime(timeOfFlight)
 
-  const {
-    time: t,
-    start,
-    stop,
-  } = useStopwatch({
-    endTime: timeOfFlight,
-  })
+  function callback2(myval) {
+    console.log("ho");
+    console.log(myval);
+    return (myval + 1);
+  }
 
-  React.useEffect(() => {
-    stop()
-    // Reset the ball's whenever the resting position changes
-  }, [restingX, restingY, stop])
+  function handleClick() {
+    setColor(callback);
+    setmy_x(callback2);
+  }
 
   return (
     <>
-      <Mafs
-        viewBox={{
-          x: [1 - xSpan, 1 + xSpan],
-          y: [1 - ySpan, 1 + ySpan],
-        }}
-      >
-        <Polygon
-          points={[
-            [-100, 0],
-            [100, 0],
-            [100, -100],
-            [-100, -100],
-          ]}
-          color="green"
-        />
+    <Mafs viewBox={{ x: [-2, 2], y: [-1, 1] }}>
+      <Coordinates.Cartesian />
+      <Line.Segment point1={point1.point} point2={point2.point} />
+      {point1.element}
+      {point2.element}
+    </Mafs>
+    <Button onClick={handleClick}/>
+    <h1 style={{color: color}}> Hello World </h1>
 
-        <Vector
-          tip={[
-            xVelocity / vectorScale,
-            yVelocity / vectorScale,
-          ]}
-        />
-
-        {yVelocity > 0 && (
-          <>
-            <Plot.Parametric
-              xy={positionAtTime}
-              t={[0, timeOfFlight]}
-              opacity={0.4}
-              style="dashed"
-            />
-            <Point
-              x={restingX}
-              y={restingY}
-              opacity={0.5}
-            />
-          </>
-        )}
-
-        <Point
-          x={positionAtTime(t)[0]}
-          y={positionAtTime(t)[1]}
-        />
-        <text
-          x={10}
-          y={30}
-          fontSize={20}
-          className="transform-to-center"
-          fill="white"
-        >
-          t = {t.toFixed(2)}/
-          {yVelocity > 0 ? timeOfFlight.toFixed(2) : "—"}{" "}
-          seconds
-        </text>
-
-        {initialVelocity.element}
-      </Mafs>
-
-      {/* These classnames are part of the Mafs docs website—they won't work for you. */}
-      <div className="p-4 bg-black border-t border-gray-900 space-x-4">
-        <button
-          className="bg-gray-200 text-black font-bold px-4 py-1 rounded-sm"
-          onClick={start}
-          disabled={yVelocity <= 0}
-        >
-          Start
-        </button>
-        <button
-          className="bg-gray-200 text-black font-bold px-4 py-1 rounded-sm"
-          onClick={stop}
-        >
-          Reset
-        </button>
-      </div>
     </>
-  )
+  );
 }
+
