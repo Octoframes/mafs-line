@@ -1,40 +1,36 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import "mafs/core.css";
 import "mafs/font.css";
-
 import { Mafs, Line, Coordinates, useMovablePoint } from "mafs";
-
 
 function Button({onClick}) {
   return <button onClick={onClick}> Hi </button>;
 };
 
-
 export default function App() {
-
   const [color, setColor] = useState('red');
   const [my_x, setmy_x] = useState(-2)
   const point1 = useMovablePoint([my_x, -1]);
   const point2 = useMovablePoint([2, 1]);
 
+  useEffect(() => {
+    point1.setPoint([my_x, -1]);
+  }, [my_x]);
+
+  
   function callback(color) {
-    if (color === "red") {
-      return ("blue");
-    } else {
-      return ("red");
-    } 
+    return color === "red" ? "blue" : "red";
   }
 
   function callback2(myval) {
     console.log("ho");
     console.log(myval);
-    return (myval + 1);
+    return myval + 1;
   }
 
   function handleClick() {
-    setColor(callback);
-    setmy_x(callback2);
+    setColor(prevColor => callback(prevColor));
+    setmy_x(prevVal => callback2(prevVal));
   }
 
   return (
@@ -47,8 +43,6 @@ export default function App() {
     </Mafs>
     <Button onClick={handleClick}/>
     <h1 style={{color: color}}> Hello World </h1>
-
     </>
   );
 }
-
