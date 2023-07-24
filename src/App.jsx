@@ -1,45 +1,31 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "mafs/core.css";
 import "mafs/font.css";
 import { Mafs, Line, Coordinates, useMovablePoint } from "mafs";
 
-function Button({ onClick }) {
-  return <button onClick={onClick}> Hi </button>;
+function Button(probs) {
+  return <button onClick={probs.onClick}> Hi </button>;
 }
 
 export default function App() {
   const [color, setColor] = useState("red");
-  const [my_x, setmy_x] = useState(-2);
-  const point1 = useMovablePoint([my_x, -1], {
-    onMove: ([x, _]) => setmy_x(x),
-  });
 
+  const point1 = useMovablePoint([-1, -1]);
   const point2 = useMovablePoint([2, 1]);
 
   useEffect(() => {
-    point1.setPoint([my_x, -1]);
-  }, [my_x]);
-
-
-  useEffect(() => {
-    console.log("hi");
-    setmy_x(point1.point[0]);
-  }, [point1.point]);
+    console.log(point1.x)
+  }, [point1.x])
 
 
   function callback(color) {
     return color === "red" ? "blue" : "red";
   }
 
-  function callback2(myval) {
-    console.log("ho");
-    console.log(myval);
-    return myval + 1;
-  }
-
   function handleClick() {
+    console.log(point1.x)
+    point1.setPoint([point1.x+1, point1.y]);
     setColor((prevColor) => callback(prevColor));
-    setmy_x((prevVal) => callback2(prevVal));
   }
 
   return (
