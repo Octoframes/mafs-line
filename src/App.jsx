@@ -32,6 +32,11 @@ export default function App() {
       <div style={{ flex: 1, marginLeft: "10px" }}>
         <Mafs viewBox={viewBox} pan={false}>
           <Coordinates.Polar subdivisions={3} lines={1} />
+          <Line.Segment
+            point1={[0, 0]}
+            point2={[r,0]}
+            color="yellow"
+          />
           <Plot.Parametric
             t={[0, angle]}
             xy={(t) => [r * Math.cos(t), r * Math.sin(t)]}
