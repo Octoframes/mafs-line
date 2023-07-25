@@ -1,0 +1,9 @@
+@import "mafs/core.css";
+
+.MafsView {
+  --mafs-bg: white;
+  --mafs-fg: #aaaa;
+  --mafs-line-color: #ddd;
+  --grid-line-subdivision-color: #ddd; ;
+
+}
