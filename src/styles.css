@@ -7,3 +7,14 @@
   --grid-line-subdivision-color: #ddd; ;
 
 }
+
+
+.mafs-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mafs-item {
+  width: 250px;
+  height: 250px;
+}

@@ -4,8 +4,9 @@ import "./styles.css";
 
 export default function PolarCoordinate() {
   const viewBox = { x: [-2, 2], y: [-4, 4] };
-  const point1 = useMovablePoint([-2, -1],  {
-    color: "orange"});
+  const point1 = useMovablePoint([-2, -1], {
+    color: "orange",
+  });
   const r = Math.sqrt(point1.point[0] ** 2 + point1.point[1] ** 2);
   let angle = Math.atan2(point1.point[1], point1.point[0]);
   const mycolor = "blue";
@@ -14,8 +15,8 @@ export default function PolarCoordinate() {
     angle += 2 * Math.PI;
   }
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div style={{ marginRight: "10px", background: "blue", width: "300px" }}>
+    <div className="mafs-container">
+      <div className="mafs-item">
         <Mafs viewBox={viewBox} pan={false}>
           <Coordinates.Cartesian />
           <Line.Segment
@@ -32,8 +33,7 @@ export default function PolarCoordinate() {
           {point1.element}
         </Mafs>
       </div>
-
-      <div style={{ marginLeft: "10px", background: "blue", width: "300px"  }}>
+      <div className="mafs-item">
         <Mafs viewBox={viewBox} pan={false}>
           <Coordinates.Polar subdivisions={1} lines={1} />
           <Line.Segment point1={[0, 0]} point2={[r, 0]} color={mycolor} />
