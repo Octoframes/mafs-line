@@ -9,7 +9,7 @@ export default function PolarCoordinate() {
   });
   const r = Math.sqrt(point1.point[0] ** 2 + point1.point[1] ** 2);
   let angle = Math.atan2(point1.point[1], point1.point[0]);
-  const mycolor = "blue";
+  const my_blue = "#6495ED";
   // Adjust angle to always be positive, between 0 to 2π
   if (angle < 0) {
     angle += 2 * Math.PI;
@@ -22,12 +22,12 @@ export default function PolarCoordinate() {
           <Line.Segment
             point1={[0, 0]}
             point2={[point1.point[0], 0]}
-            color={mycolor}
+            color={my_blue}
           />
           <Line.Segment
             point1={[point1.point[0], 0]}
             point2={point1.point}
-            color={mycolor}
+            color={my_blue}
           />
 
           {point1.element}
@@ -36,11 +36,11 @@ export default function PolarCoordinate() {
       <div className="mafs-item">
         <Mafs viewBox={viewBox} pan={false} height = {330}>
           <Coordinates.Polar subdivisions={1} lines={1} />
-          <Line.Segment point1={[0, 0]} point2={[r, 0]} color={mycolor} />
+          <Line.Segment point1={[0, 0]} point2={[r, 0]} color={my_blue} />
           <Plot.Parametric
             t={[0, angle]}
             xy={(t) => [r * Math.cos(t), r * Math.sin(t)]}
-            color={mycolor}
+            color={my_blue}
           />
           {point1.element}
         </Mafs>
