@@ -17,7 +17,7 @@ export default function PolarCoordinate() {
   return (
     <div className="mafs-container">
       <div className="mafs-item">
-        <Mafs viewBox={viewBox} pan={false}>
+        <Mafs viewBox={viewBox} pan={false} height = {330}>
           <Coordinates.Cartesian />
           <Line.Segment
             point1={[0, 0]}
@@ -34,7 +34,7 @@ export default function PolarCoordinate() {
         </Mafs>
       </div>
       <div className="mafs-item">
-        <Mafs viewBox={viewBox} pan={false}>
+        <Mafs viewBox={viewBox} pan={false} height = {330}>
           <Coordinates.Polar subdivisions={1} lines={1} />
           <Line.Segment point1={[0, 0]} point2={[r, 0]} color={mycolor} />
           <Plot.Parametric
