@@ -13,10 +13,9 @@ export default function PolarCoordinate() {
   if (angle < 0) {
     angle += 2 * Math.PI;
   }
-
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div style={{ flex: 1, marginRight: "10px", background: "blue" }}>
+      <div style={{ marginRight: "10px", background: "blue", width: "300px" }}>
         <Mafs viewBox={viewBox} pan={false}>
           <Coordinates.Cartesian />
           <Line.Segment
@@ -34,7 +33,7 @@ export default function PolarCoordinate() {
         </Mafs>
       </div>
 
-      <div style={{ flex: 1, marginLeft: "10px", background: "blue" }}>
+      <div style={{ marginLeft: "10px", background: "blue", width: "300px"  }}>
         <Mafs viewBox={viewBox} pan={false}>
           <Coordinates.Polar subdivisions={1} lines={1} />
           <Line.Segment point1={[0, 0]} point2={[r, 0]} color={mycolor} />
